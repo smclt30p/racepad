@@ -67,8 +67,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="images\needle.svg" />
-    <Content Include="images\ticks.svg" />
+    <Content Include="build\main.js" />
     <Content Include="index.html" />
     <Content Include="images\LockScreenLogo.scale-200.png" />
     <Content Include="images\SplashScreen.scale-200.png" />
@@ -78,16 +77,12 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="css\default.css" />
-    <Content Include="res\EHSMB.TTF" />
-    <Content Include="res\lcddot_tr.ttf" />
-    <Content Include="res\open.ttf" />
+    <TypeScriptCompile Include="src\BatteryTimeDisplay.ts" />
+    <TypeScriptCompile Include="src\MaxAverageDisplay.ts" />
     <TypeScriptCompile Include="src\Main.ts" />
     <None Include="Racepad_TemporaryKey.pfx" />
     <TypeScriptCompile Include="src\Speedometer.ts" />
     <TypeScriptCompile Include="src\Stopwatch.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="build\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4a0dddb5-7a95-4fbf-97cc-616d07737a77}" />

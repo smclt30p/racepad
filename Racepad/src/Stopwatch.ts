@@ -7,10 +7,10 @@
 	private running: boolean;
 	private longPressTimer: number;
 
-	public constructor(element: HTMLElement) {
+	public constructor() {
 
 		this.tearDownWatch();
-		this.display = element;
+		this.display = document.getElementById("time");
 		this.running = false;
 		this.display.addEventListener("click", () => {
 			console.log("click");

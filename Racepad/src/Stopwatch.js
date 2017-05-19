@@ -1,8 +1,8 @@
 var Stopwatch = (function () {
-    function Stopwatch(element) {
+    function Stopwatch() {
         var _this = this;
         this.tearDownWatch();
-        this.display = element;
+        this.display = document.getElementById("time");
         this.running = false;
         this.display.addEventListener("click", function () {
             console.log("click");
