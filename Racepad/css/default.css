@@ -1,0 +1,41 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: black;
+    -ms-content-zooming: none;
+    font-family: "Segoe UI";
+}
+
+.item {
+    color: white;
+    font-weight: 100;
+    font-size: 25vh;
+    line-height: 25vh;
+    text-align: center;
+}
+
+.secondary {
+    line-height: 12vh;
+    font-size: 12vh;
+}
+
+.desc {
+    color: white;
+    font-weight: 100;
+    text-align: center;
+    font-size: 5vh;
+    line-height: 4vh;
+    margin-bottom: 1.5vh;
+}
+
+.logger-btn {
+    color: white;
+    font-weight: 100;
+    font-size: 6vh;
+    margin-top: 5vh;
+    line-height: 13vh;
+    text-align: center;
+}
