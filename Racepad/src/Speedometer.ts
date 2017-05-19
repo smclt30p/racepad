@@ -146,9 +146,9 @@
 		let container: Windows.Storage.ApplicationDataContainer = this.getStorageContainer();
 
 		if (container.values["data"] == undefined || container.values["data"] == null) {
-			container.values["data"] = this.backupOdo();
+			this.backupOdo();
 		}
-
+		let data = container.values["data"];
 		let backup = JSON.parse(container.values["data"]);
 		this.odometer = backup.odo;
 		this.trip1 = backup.trip1;
