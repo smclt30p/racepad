@@ -13,7 +13,14 @@
 		this.displayHandler = new Windows.System.Display.DisplayRequest();
 	}
 
-	public main(): void {
+    public main(): void {
+
+        if (Windows.Foundation.Metadata.ApiInformation.isTypePresent("Windows.UI.ViewManagement.StatusBar")) {
+
+            let statusbar = Windows.UI.ViewManagement.StatusBar.getForCurrentView();
+            statusbar.showAsync();
+
+        }
 
 		Windows.UI.WebUI.WebUIApplication.addEventListener("enteredbackground", () => {
 			this.speedometer.backupOdo();
