@@ -7,15 +7,38 @@
 </head>
 <body>
     
-    <h1 id="speed" class="item">---</h1>
-    <h1 class="desc">km/h</h1>
-    <h1 id="odometer"class="item secondary">---</h1>
-    <h1 id="odometer-desc" class="desc">odo | km</h1>
-    <h1 id="time" class="item secondary">--:--:--</h1>
-    <h1 class="desc">time</h1>
-    <h1 id="avgdisp" class="item secondary">---</h1>
-    <h1 id="avgdesc" class="desc">avg | km/h</h1>
-    <h1 id="battime" class="logger-btn"></h1>
+    <div id="speed-wrap">
+        
+        <h1 id="speed" class="item">---</h1>
+        <h1 class="desc">km/h</h1>
+        <h1 id="odometer" class="item secondary">---</h1>
+        <h1 id="odometer-desc" class="desc">odo | km</h1>
+        <h1 id="time" class="item secondary">--:--:--</h1>
+        <h1 class="desc">time</h1>
+        <h1 id="avgdisp" class="item secondary">---</h1>
+        <h1 id="avgdesc" class="desc">avg | km/h</h1>
+
+    </div>
+
+    <div id="settings-wrap">
+        
+        <h1 class="sett-title">Save location</h1>
+        <h3 class="sett-desc">Location for saving CSV logs</h3>
+        <h3 id="log-loc" class="sett-desc sett-loc">Location not set</h3>
+        <button id="path-pick">Browse</button>
+
+    </div>
+
+    <div class="nav-container">
+        <div class="record-btn-wrap pressed">
+             <div id="record-btn" class="dynsize"></div>
+             <div id="record-desc">Start logging</div>
+        </div>
+        <div class="settings-btn-wrap pressed">
+            <div id="settings-btn" class="dynsize"></div>
+        </div>
+    </div>
+
     <script src="build/main.js"></script>
 </body>
 </html>

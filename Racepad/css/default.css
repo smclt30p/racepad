@@ -31,11 +31,87 @@ body {
     margin-bottom: 1.5vh;
 }
 
-.logger-btn {
+.nav-container {
+    height: 8.5vh;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    width: 100;
+    background: #262626;
+    display: flex;
+    justify-content: space-between;
+}
+
+#settings-btn {
+    height: 100%;
+    background: url("/images/settings.png") no-repeat center;
+}
+.settings-btn-wrap {
+    height: 100%;
+}
+#record-btn {
+    height: 100%;
+    background: url("/images/play.png") no-repeat center;
+}
+
+.pressed:active {
+    background: #6e6e6e;
+}
+
+.record-btn-wrap {
+    display: flex;
+}
+
+#record-desc {
+    color: white;
+    line-height: 8vh;
+    font-size: 3.5vh;
+    font-weight: 100;
+    padding-right: 15px;
+}
+
+.sett-title, .sett-desc {
     color: white;
     font-weight: 100;
-    font-size: 6vh;
-    margin-top: 5vh;
-    line-height: 13vh;
-    text-align: center;
+}
+
+.sett-title {
+    margin: 20px 10px 0px 20px;
+}
+
+.sett-desc {
+    margin: 0px 0px 0px 20px;
+}
+
+input {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    display: block;
+    height: 4vh;
+}
+
+#settings-wrap {
+    display: none;
+}
+
+#speed-wrap {
+    display: block;
+}
+
+.sett-loc {
+    font-size: 3vh;
+    font-style: italic;
+}
+
+button {
+    margin: 10px 10px 10px 20px;
+    padding: 15px;
+    width: 30%;
+    background: #262626;
+    color: white;
+    border: none;
+}
+
+button:active {
+    background: #6e6e6e;
 }

@@ -2,13 +2,18 @@
 
 	private stopwatch: Stopwatch;
 	private speedometer: Speedometer;
-	private displayHandler: Windows.System.Display.DisplayRequest;
+    private displayHandler: Windows.System.Display.DisplayRequest;
+    private ifmanager: InterfaceManager;
 
-	public constructor() {
+    public constructor() {
+
+        this.ifmanager = new InterfaceManager();
+        this.ifmanager.setupToolbar();
 
 		this.stopwatch = new Stopwatch();
 		this.speedometer = new Speedometer();
-		this.displayHandler = new Windows.System.Display.DisplayRequest();
+        this.displayHandler = new Windows.System.Display.DisplayRequest();
+
 	}
 
     public main(): void {
@@ -21,16 +26,15 @@
         }
 
 		Windows.UI.WebUI.WebUIApplication.addEventListener("enteredbackground", () => {
-			this.speedometer.backupOdo();
-			this.displayHandler.requestRelease();
+            this.speedometer.backupOdo();
+            try { this.displayHandler.requestRelease(); } catch (e) { console.log("Exception thrown in release: " + e); }
 		});
 
 		Windows.UI.WebUI.WebUIApplication.addEventListener("leavingbackground", () => {
-			this.displayHandler.requestActive();
+            try { this.displayHandler.requestActive(); } catch (e) { console.log("Exception thrown in request: " + e); }
 		});
 
-		this.speedometer.restoreOdo();
-
+        this.speedometer.restoreOdo();
 		this.speedometer.start();
 
 	}
