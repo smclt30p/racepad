@@ -84,6 +84,7 @@
     <TypeScriptCompile Include="src\MaxAverageDisplay.ts" />
     <TypeScriptCompile Include="src\Main.ts" />
     <None Include="Racepad_TemporaryKey.pfx" />
+    <TypeScriptCompile Include="src\SettingsManager.ts" />
     <TypeScriptCompile Include="src\Speedometer.ts" />
     <TypeScriptCompile Include="src\Stopwatch.ts" />
   </ItemGroup>

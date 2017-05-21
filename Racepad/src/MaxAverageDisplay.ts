@@ -94,34 +94,13 @@
 
 	};
 
-	private getStorageContainer(): Windows.Storage.ApplicationDataContainer {
-
-		let appdata: Windows.Storage.ApplicationData = Windows.Storage.ApplicationData.current;
-		let settings: Windows.Storage.ApplicationDataContainer = appdata.localSettings;
-		let container: Windows.Storage.ApplicationDataContainer = null;
-
-		if (!settings.containers.hasKey("maxData")) {
-			container = settings.createContainer("maxData", Windows.Storage.ApplicationDataCreateDisposition.always);
-		} else {
-			container = settings.containers.lookup("maxData");
-		}
-
-		return container;
-
-	}
-
 	public backupMax(): void {
-		let container = this.getStorageContainer();
-		container.values["max"] = this.globalMax;
+        SettingsManager.getManager().putSetting("max", this.globalMax.toString());
 		this.refresh();
 	};
 
 	public restoreMax(): void {
-		let container = this.getStorageContainer();
-		if (container.values["max"] == undefined || container.values["max"] == null) {
-			container.values["max"] = 0;
-		};
-		this.globalMax = container.values["max"];
+        this.globalMax = parseFloat(SettingsManager.getManager().getSetting("max", "0"));
 		this.refresh();
 	};
 

@@ -40,8 +40,8 @@
                 folderPicker.pickSingleFolderAsync().then((folder: Windows.Storage.StorageFolder) => {
 
                     if (folder != null) {
-                        console.log(folder);
                         this.logLocation.innerHTML = folder.path;
+                        SettingsManager.getManager().putSetting("path", folder.path);
                     } else {
                         console.log("Picking canceled.")
                     }
@@ -67,7 +67,7 @@
             case this.PAGE_SETTINGS:
                 this.setingsPage.setAttribute("style", "display: block");
                 this.speedoPage.setAttribute("style", "display: none");
-
+                this.restorePath();
                 this.settingsButton.setAttribute("style", "background: url(\"/images/speedometer.png\") no-repeat center;width: " + this.handleResize())
 
                 break;
@@ -82,6 +82,12 @@
         }
 
     };
+
+    private restorePath(): void {
+
+        this.logLocation.innerHTML = SettingsManager.getManager().getSetting("path", "Not Specified");
+
+    }
 
     private handleResize(): string {
 

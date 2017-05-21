@@ -142,14 +142,8 @@
 	public restoreOdo(): void {
 
 		this.maxavg.restoreMax();
-
-		let container: Windows.Storage.ApplicationDataContainer = this.getStorageContainer();
-
-		if (container.values["data"] == undefined || container.values["data"] == null) {
-			this.backupOdo();
-		}
-		let data = container.values["data"];
-		let backup = JSON.parse(container.values["data"]);
+        let olddata = SettingsManager.getManager().getSetting("odoData", this.backupOdo())
+        let backup = JSON.parse(olddata);
 		this.odometer = backup.odo;
 		this.trip1 = backup.trip1;
 		this.trip2 = backup.trip2;
@@ -157,7 +151,7 @@
 
 	};
 
-	public backupOdo(): void {
+	public backupOdo(): string {
 
 		this.maxavg.backupMax();
 
@@ -167,27 +161,13 @@
 		backup.trip1 = this.trip1;
 		backup.trip2 = this.trip2;
 
-		let store = JSON.stringify(backup);
-		let container: Windows.Storage.ApplicationDataContainer = this.getStorageContainer();
+        let store = JSON.stringify(backup);
 
-		container.values["data"] = store;
+        SettingsManager.getManager().putSetting("odoData", store);
+
+        return store;
 
 	};
 
-	private getStorageContainer(): Windows.Storage.ApplicationDataContainer {
-
-		let appdata: Windows.Storage.ApplicationData = Windows.Storage.ApplicationData.current;
-		let settings: Windows.Storage.ApplicationDataContainer = appdata.localSettings;
-		let container: Windows.Storage.ApplicationDataContainer = null;
-
-		if (!settings.containers.hasKey("odoData")) {
-			container = settings.createContainer("odoData", Windows.Storage.ApplicationDataCreateDisposition.always);
-		} else {
-			container = settings.containers.lookup("odoData");
-		}
-
-		return container;
-
-	}
 
 }
