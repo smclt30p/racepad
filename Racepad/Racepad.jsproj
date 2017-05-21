@@ -77,7 +77,6 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="css\default.css" />
-    <TypeScriptCompile Include="src\BatteryTimeDisplay.ts" />
     <TypeScriptCompile Include="src\MaxAverageDisplay.ts" />
     <TypeScriptCompile Include="src\Main.ts" />
     <None Include="Racepad_TemporaryKey.pfx" />
