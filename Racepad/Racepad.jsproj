@@ -80,6 +80,7 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="css\default.css" />
+    <TypeScriptCompile Include="src\DataLogger.ts" />
     <TypeScriptCompile Include="src\InterfaceManager.ts" />
     <TypeScriptCompile Include="src\MaxAverageDisplay.ts" />
     <TypeScriptCompile Include="src\Main.ts" />

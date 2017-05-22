@@ -119,7 +119,9 @@
 					}
 				};
 
-				this.geolocator.onpositionchanged = (details) => {
+                this.geolocator.onpositionchanged = (details) => {
+
+                    console.log(details);
 
 					if (details.position.coordinate.speed.toString() == "NaN") return;
 
@@ -141,8 +143,8 @@
 
 	public restoreOdo(): void {
 
-		this.maxavg.restoreMax();
-        let olddata = SettingsManager.getManager().getSetting("odoData", this.backupOdo())
+        this.maxavg.restoreMax();
+        let olddata = SettingsManager.getManager().getSetting("odoData", this.serialize())
         let backup = JSON.parse(olddata);
 		this.odometer = backup.odo;
 		this.trip1 = backup.trip1;
@@ -155,13 +157,7 @@
 
 		this.maxavg.backupMax();
 
-		let backup = { "odo": null, "trip1": null, "trip2":null };
-
-		backup.odo = this.odometer;
-		backup.trip1 = this.trip1;
-		backup.trip2 = this.trip2;
-
-        let store = JSON.stringify(backup);
+        let store = this.serialize();
 
         SettingsManager.getManager().putSetting("odoData", store);
 
@@ -169,5 +165,19 @@
 
 	};
 
+    private serialize(): string {
+
+
+        let backup = { "odo": null, "trip1": null, "trip2": null };
+
+        backup.odo = this.odometer;
+        backup.trip1 = this.trip1;
+        backup.trip2 = this.trip2;
+
+        let store = JSON.stringify(backup);
+
+        return store
+
+    };
 
 }
