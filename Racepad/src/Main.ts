@@ -18,13 +18,6 @@
 
     public main(): void {
 
-        if (Windows.Foundation.Metadata.ApiInformation.isTypePresent("Windows.UI.ViewManagement.StatusBar")) {
-
-            let statusbar = Windows.UI.ViewManagement.StatusBar.getForCurrentView();
-            statusbar.showAsync();
-
-        }
-
         /*
          * This does not need to be relased as the system does that by itself when
          * the user leaves the app. The release method is used when there needs to be
@@ -42,6 +35,7 @@
             }
 		});
 
+        this.ifmanager.statusBarShowMobileGuarded();
         this.speedometer.restoreOdo();
 		this.speedometer.start();
 

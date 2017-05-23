@@ -104,4 +104,16 @@
 
     }
 
+    
+    public statusBarShowMobileGuarded(): void {
+
+        if (Windows.Foundation.Metadata.ApiInformation.isTypePresent("Windows.UI.ViewManagement.StatusBar")) {
+
+            let statusbar = Windows.UI.ViewManagement.StatusBar.getForCurrentView();
+            statusbar.showAsync();
+
+        }
+
+    }
+
 }
