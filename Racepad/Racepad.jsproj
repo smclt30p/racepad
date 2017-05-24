@@ -82,6 +82,7 @@
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="css\default.css" />
+    <TypeScriptCompile Include="src\core\Display.ts" />
     <TypeScriptCompile Include="src\util\InterfaceManager.ts" />
     <TypeScriptCompile Include="src\core\MaxAverageDisplay.ts" />
     <TypeScriptCompile Include="src\Main.ts" />

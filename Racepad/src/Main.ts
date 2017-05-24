@@ -2,22 +2,40 @@
 
 	private stopwatch: Stopwatch;
 	private speedometer: Speedometer;
-    private displayHandler: Windows.System.Display.DisplayRequest;
     private ifmanager: InterfaceManager = InterfaceManager.getInterfaceManager();
+    private display: Display;
 
     public constructor() {
 
         this.ifmanager.setupToolbar();
 
 		this.stopwatch = new Stopwatch();
-		this.speedometer = new Speedometer();
-        this.displayHandler = new Windows.System.Display.DisplayRequest();
+        this.speedometer = new Speedometer();
+        this.display = new Display();
 
 	}
 
     public main(): void {
 
-        this.displayHandler.requestActive();
+        Windows.UI.WebUI.WebUIApplication.addEventListener("enteredbackground", () => {
+
+            try {
+                this.display.releaseRequest();
+            } catch (e) {
+                console.log("Shit in release: " + e);
+            }
+
+        });
+
+        Windows.UI.WebUI.WebUIApplication.addEventListener("leavingbackground", () => {
+
+            try {
+                this.display.requestAwake();
+            } catch (e) {
+                console.log("Shit in request: " + e);
+            }
+
+        });
 
         let self = this;
 
