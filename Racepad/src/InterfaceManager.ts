@@ -179,12 +179,10 @@
     public addTimeLongClickListener(callback: () => void): void {
 
         this.timeDisplay.addEventListener("touchend", () => {
-            console.log("mouseup");
             clearTimeout(this.timeClearTimer);
         });
 
         this.timeDisplay.addEventListener("touchstart", () => {
-            console.log("mousedown");
             this.timeClearTimer = setTimeout(() => {
                 callback();
             }, 1000);
