@@ -18,7 +18,9 @@
 
         this.ifmanager.addMaxAverageClickListener(() => {
 			this.switchDisplay();
-		});
+        });
+
+        this.refresh();
 
 	};
 
