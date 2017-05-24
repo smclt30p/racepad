@@ -1,9 +1,5 @@
 ﻿class Speedometer {
 
-	private display: HTMLElement;
-	private odo: HTMLElement;
-	private odoDesc: HTMLElement;
-
 	private geolocator: Windows.Devices.Geolocation.Geolocator;
 	private maxavg: MaxAverageDisplay;
 
@@ -17,31 +13,16 @@
 
 	private currentDisplay: number = 0;
 
-	private clearOdoTimer: number;
+    private ifmanager: InterfaceManager = InterfaceManager.getInterfaceManager();
 
 	public constructor() {
 
 		this.maxavg = new MaxAverageDisplay();
 
-		this.display = document.getElementById("speed");
-		this.odo = document.getElementById("odometer");
-		this.odoDesc = document.getElementById("odometer-desc");
+        this.ifmanager.addOdometerClickListener(() => this.switchDisplayMode());
+        this.ifmanager.addOdometerLongClickListener(() => this.clearOdo());
 
-		this.odo.addEventListener("click", () => {
-			this.switchDisplayMode();
-		});
-
-		this.odo.addEventListener("touchstart", () => {
-			this.clearOdoTimer = setTimeout(() => {
-				this.clearOdo();
-			}, 1000);
-		});
-
-		this.odo.addEventListener("touchend", () => {
-			clearTimeout(this.clearOdoTimer);
-		});
-
-		this.displayOdodmeterData();
+        this.displayOdodmeterData();
 
 	};
 
@@ -67,16 +48,16 @@
 
 		switch (this.currentDisplay) {
 
-			case this.DISPLAY_ODO:
-				this.odoDesc.innerHTML = "odo | km";
+            case this.DISPLAY_ODO:
+                this.ifmanager.setOdometerDescription("odo | km");
 				this.displayOdodmeterData();
 				break;
 			case this.DISPLAY_TRIP1:
-				this.odoDesc.innerHTML = "trip 1 | km";
+                this.ifmanager.setOdometerDescription("trip 1 | km");
 				this.displayOdodmeterData();
 				break;
 			case this.DISPLAY_TRIP2:
-				this.odoDesc.innerHTML = "trip 2 | km";
+                this.ifmanager.setOdometerDescription("trip 2 | km");
 				this.displayOdodmeterData();
 				break;
 		}
@@ -87,14 +68,14 @@
 
 		switch (this.currentDisplay) {
 
-			case this.DISPLAY_ODO:
-				this.odo.innerHTML = (this.odometer / 1000).toFixed(2);
+            case this.DISPLAY_ODO:
+                this.ifmanager.setOdometerText((this.odometer / 1000).toFixed(2));
 				break;
 			case this.DISPLAY_TRIP1:
-				this.odo.innerHTML = (this.trip1 / 1000).toFixed(2);
+                this.ifmanager.setOdometerText((this.trip1 / 1000).toFixed(2));
 				break;
 			case this.DISPLAY_TRIP2:
-				this.odo.innerHTML = (this.trip2 / 1000).toFixed(2);
+                this.ifmanager.setOdometerText((this.trip2 / 1000).toFixed(2));
 				break;
 		}
 
@@ -105,7 +86,7 @@
         let accessStatus: Windows.Devices.Geolocation.GeolocationAccessStatus = await Windows.Devices.Geolocation.Geolocator.requestAccessAsync();
 
         if (accessStatus != Windows.Devices.Geolocation.GeolocationAccessStatus.allowed) {
-            this.display.innerHTML = "ERR";
+            this.ifmanager.setSpeedometerText("DEN");
             return;
         }
 
@@ -116,7 +97,7 @@
 
         this.geolocator.onstatuschanged = (value: Windows.Devices.Geolocation.StatusChangedEventArgs) => {
             if (value.status == Windows.Devices.Geolocation.PositionStatus.ready) {
-                this.display.innerHTML = "0.0";
+                this.ifmanager.setSpeedometerText("0.0");
             }
         };
 
@@ -131,7 +112,7 @@
             this.trip2 += details.position.coordinate.speed;
 
             this.maxavg.pushSpeed(details.position.coordinate.speed);
-            this.display.innerHTML = speed;
+            this.ifmanager.setSpeedometerText(speed);
             this.displayOdodmeterData();
             this.maxavg.refresh();
         };

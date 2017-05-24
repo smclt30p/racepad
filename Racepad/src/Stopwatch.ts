@@ -2,18 +2,18 @@
 
 	private seconds: number;
 	private dateType: Date;
-	private display: HTMLElement;
 	private interval: number;
 	private running: boolean;
-	private longPressTimer: number;
+
+    private ifmanager: InterfaceManager = InterfaceManager.getInterfaceManager();
 
 	public constructor() {
 
 		this.tearDownWatch();
-		this.display = document.getElementById("time");
-		this.running = false;
-		this.display.addEventListener("click", () => {
-			console.log("click");
+        this.running = false;
+
+        this.ifmanager.addTimeClickListener(() => {
+
 			if (this.running) {
 				this.pause();
 				return;
@@ -23,24 +23,14 @@
 
 		});
 
-		this.display.addEventListener("touchend", () => {
-			console.log("mouseup");
-			clearTimeout(this.longPressTimer);
-		});
-
-		this.display.addEventListener("touchstart", () => {
-			console.log("mousedown");
-			this.longPressTimer = setTimeout(() => {
-				this.reset();
-			}, 1000);
-		});
+        this.ifmanager.addTimeLongClickListener(() => this.reset());
 
 	}
 
 	public reset(): void {
 
-		clearInterval(this.interval);
-		this.display.innerHTML = "--:--:--";
+        clearInterval(this.interval);
+        this.ifmanager.setTimeText("--:--:--");
 		this.tearDownWatch();
 		this.running = false;
 
@@ -62,7 +52,7 @@
 			let minutes = this.formatTime(this.dateType.getUTCMinutes());
 			let seconds = this.formatTime(this.dateType.getUTCSeconds());
 
-			this.display.innerHTML = hours + ":" + minutes + ":" + seconds;
+            this.ifmanager.setTimeText(hours + ":" + minutes + ":" + seconds);
 
 		}, 1000);
 

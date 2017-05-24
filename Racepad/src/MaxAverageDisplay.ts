@@ -1,24 +1,22 @@
 ﻿class MaxAverageDisplay {
 
 
-	private desc: HTMLElement;
-	private display: HTMLElement;
-
 	private speeds: number[];
 
 	private DISPLAY_MAX = 0;
 	private DISPLAY_AVG = 1;
 
 	private currentDisplay: number = 0;
-	private globalMax: number = 0;
+    private globalMax: number = 0;
+
+    private ifmanager: InterfaceManager = InterfaceManager.getInterfaceManager();
 
 	public constructor() {
 
-		this.desc = document.getElementById("avgdesc");
-		this.display = document.getElementById("avgdisp");
+
 		this.speeds = [];
 
-		this.display.addEventListener("click", () => {
+        this.ifmanager.addMaxAverageClickListener(() => {
 			this.switchDisplay();
 		});
 
@@ -44,7 +42,7 @@
 	private displayAverage(): void {
 
 		if (this.speeds.length == 0) {
-			this.display.innerHTML = "---";
+            this.ifmanager.setMaxAverageText("---");
 			return;
 		};
 
@@ -55,14 +53,15 @@
 
 		let avg = total / this.speeds.length;
 
-		this.display.innerHTML = (avg * 3.6).toFixed(1);
+        this.ifmanager.setMaxAverageText((avg * 3.6).toFixed(1));
 
 	};
 
 	private displayMaximum(): void {
 
 		if (this.speeds.length == 0) {
-			this.display.innerHTML = "---";
+            this.ifmanager.setMaxAverageText("---");
+            return;
 		};
 
 		for (let i = 0; i < this.speeds.length; i++) {
@@ -73,7 +72,7 @@
 
 		}
 
-		this.display.innerHTML = (this.globalMax * 3.6).toFixed(1);
+        this.ifmanager.setMaxAverageText((this.globalMax * 3.6).toFixed(1));
 
 	}; 
 
@@ -82,12 +81,12 @@
 		switch (this.currentDisplay) {
 
 			case this.DISPLAY_AVG:
-				this.displayAverage();
-				this.desc.innerHTML = "avg | km/h";
+                this.displayAverage();
+                this.ifmanager.setMaxAverageDescriptionText("avg | km/h");
 				break;
 			case this.DISPLAY_MAX:
 				this.displayMaximum();
-				this.desc.innerHTML = "max | km/h"
+                this.ifmanager.setMaxAverageDescriptionText("max | km/h");
 				break;
 
 		};

@@ -3,11 +3,10 @@
 	private stopwatch: Stopwatch;
 	private speedometer: Speedometer;
     private displayHandler: Windows.System.Display.DisplayRequest;
-    private ifmanager: InterfaceManager;
+    private ifmanager: InterfaceManager = InterfaceManager.getInterfaceManager();
 
     public constructor() {
 
-        this.ifmanager = new InterfaceManager();
         this.ifmanager.setupToolbar();
 
 		this.stopwatch = new Stopwatch();
