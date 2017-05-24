@@ -123,7 +123,7 @@
 	public restoreOdo(): void {
 
 		this.maxavg.restoreMax();
-        let olddata = SettingsManager.getManager().getSetting("odoData", this.backupOdo())
+        let olddata = SettingsManager.getManager().getSetting("odoData", this.serialize());
         let backup = JSON.parse(olddata);
 		this.odometer = backup.odo;
 		this.trip1 = backup.trip1;
@@ -132,23 +132,23 @@
 
 	};
 
-	public backupOdo(): string {
+	public backupOdo(): void {
 
 		this.maxavg.backupMax();
-
-		let backup = { "odo": null, "trip1": null, "trip2":null };
-
-		backup.odo = this.odometer;
-		backup.trip1 = this.trip1;
-		backup.trip2 = this.trip2;
-
-        let store = JSON.stringify(backup);
-
-        SettingsManager.getManager().putSetting("odoData", store);
-
-        return store;
+        SettingsManager.getManager().putSetting("odoData", this.serialize());
 
 	};
 
+    private serialize(): string {
+
+        let backup = { "odo": null, "trip1": null, "trip2": null };
+
+        backup.odo = this.odometer;
+        backup.trip1 = this.trip1;
+        backup.trip2 = this.trip2;
+
+        return JSON.stringify(backup);
+
+    }
 
 }
