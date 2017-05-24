@@ -22,7 +22,7 @@
             try {
                 this.display.releaseRequest();
             } catch (e) {
-                console.log("Shit in release: " + e);
+                console.log("Error in release: " + e);
             }
 
         });
@@ -32,7 +32,7 @@
             try {
                 this.display.requestAwake();
             } catch (e) {
-                console.log("Shit in request: " + e);
+                console.log("Error in request: " + e);
             }
 
         });
