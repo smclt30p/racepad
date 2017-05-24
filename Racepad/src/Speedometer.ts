@@ -100,44 +100,44 @@
 
 	}
 
-	public start() : void {
+    public async start(): Promise<void> {
 
-		Windows.Devices.Geolocation.Geolocator.requestAccessAsync()
-			.then((value: Windows.Devices.Geolocation.GeolocationAccessStatus) => {
+        let accessStatus: Windows.Devices.Geolocation.GeolocationAccessStatus = await Windows.Devices.Geolocation.Geolocator.requestAccessAsync();
 
-				if (value != Windows.Devices.Geolocation.GeolocationAccessStatus.allowed) {
-					this.display.innerHTML = "ERR";
-					return;
-				}
+        if (accessStatus != Windows.Devices.Geolocation.GeolocationAccessStatus.allowed) {
+            this.display.innerHTML = "ERR";
+            return;
+        }
 
-				this.geolocator = new Windows.Devices.Geolocation.Geolocator();
-				this.geolocator.desiredAccuracy = 1;
-				this.geolocator.reportInterval = 500;
-				this.geolocator.onstatuschanged = (value) => {
-					if (value.status == Windows.Devices.Geolocation.PositionStatus.ready) {
-						this.display.innerHTML = "0.0";
-					}
-				};
+        this.geolocator = new Windows.Devices.Geolocation.Geolocator();
 
-				this.geolocator.onpositionchanged = (details) => {
+        this.geolocator.desiredAccuracy = 1; // 1 meter
+        this.geolocator.reportInterval = 1000; // 1 second
 
-					if (details.position.coordinate.speed.toString() == "NaN") return;
+        this.geolocator.onstatuschanged = (value: Windows.Devices.Geolocation.StatusChangedEventArgs) => {
+            if (value.status == Windows.Devices.Geolocation.PositionStatus.ready) {
+                this.display.innerHTML = "0.0";
+            }
+        };
 
-					let speed = (details.position.coordinate.speed * 3.6).toFixed(1);
+        this.geolocator.onpositionchanged = (details: Windows.Devices.Geolocation.PositionChangedEventArgs) => {
 
-					this.odometer += details.position.coordinate.speed;
-					this.trip1 += details.position.coordinate.speed;
-					this.trip2 += details.position.coordinate.speed;
+            if (details.position.coordinate.speed.toString() == "NaN") return;
 
-					this.maxavg.pushSpeed(details.position.coordinate.speed);
-					this.display.innerHTML = speed;
-					this.displayOdodmeterData();
-					this.maxavg.refresh();
-				};
+            let speed = (details.position.coordinate.speed * 3.6).toFixed(1);
 
-		});
+            this.odometer += details.position.coordinate.speed;
+            this.trip1 += details.position.coordinate.speed;
+            this.trip2 += details.position.coordinate.speed;
 
-	};
+            this.maxavg.pushSpeed(details.position.coordinate.speed);
+            this.display.innerHTML = speed;
+            this.displayOdodmeterData();
+            this.maxavg.refresh();
+        };
+
+
+    };
 
 	public restoreOdo(): void {
 

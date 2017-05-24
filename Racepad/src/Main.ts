@@ -18,28 +18,35 @@
 
     public main(): void {
 
+
         /*
-         * This does not need to be relased as the system does that by itself when
-         * the user leaves the app. The release method is used when there needs to be
-         * dynamic display requests, for example when a e-book is opened in Edge -- the
-         * screen should stay on in the ebook but not always, that's when it gets released.
-         * We dont to that because the display MUST always stay on while inside the app.
-         *
-         * More info: https://docs.microsoft.com/en-us/uwp/api/windows.system.display.displayrequest
+        * This does not need to be relased as the system does that by itself when
+        * the user leaves the app. The release method is used when there needs to be
+        * dynamic display requests, for example when a e-book is opened in Edge -- the
+        * screen should stay on in the ebook but not always, that's when it gets released.
+        * We dont to that because the display MUST always stay on while inside the app.
+        *
+        * More info: https://docs.microsoft.com/en-us/uwp/api/windows.system.display.displayrequest
         */
-		Windows.UI.WebUI.WebUIApplication.addEventListener("leavingbackground", () => {
+        Windows.UI.WebUI.WebUIApplication.addEventListener("leavingbackground", () => {
             try {
-                this.displayHandler.requestActive();
+                self.displayHandler.requestActive();
             } catch (e) {
                 console.log("Error requesting displayHandler active: " + e);
             }
-		});
+        });
 
-        this.ifmanager.statusBarShowMobileGuarded();
-        this.speedometer.restoreOdo();
-		this.speedometer.start();
+        let self = this;
 
-	}
+        (async function() {
+
+            self.ifmanager.statusBarShowMobileGuarded();
+            self.speedometer.restoreOdo();
+            self.speedometer.start();
+
+        })();
+
+    }
 
 };
 
