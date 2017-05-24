@@ -3,7 +3,7 @@
 
 This is a personal project to track speed/distance on my bike.
 
-![screenshot](http://i.imgur.com/YKQCzm1.png "Screenshot")
+![screenshot](http://i.imgur.com/g7L6wCh.png "Screenshot")
 
 #### Features
 
